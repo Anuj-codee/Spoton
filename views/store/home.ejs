@@ -1,0 +1,141 @@
+<%- include('../partials/head') %>
+  <style>
+    .home-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .home-action-button {
+      flex: 1;
+      display: inline-block;
+      padding: 0.625rem 1rem;
+      border: 0;
+      border-radius: 0.5rem;
+      color: #fff;
+      font: inherit;
+      font-weight: 600;
+      line-height: 1.25rem;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 200ms ease;
+    }
+
+    .home-action-details {
+      background-color: #2563eb;
+    }
+
+    .home-action-details:hover {
+      background-color: #1d4ed8;
+    }
+
+    .home-action-book {
+      background-color: #059669;
+    }
+
+    .home-action-book:hover {
+      background-color: #047857;
+    }
+  </style>
+  </head>
+
+  <body class="min-h-screen bg-slate-950 text-slate-100" style="font-family: 'Inter', sans-serif;">
+
+    <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3 min-w-fit">
+          <div class="w-10 h-10 rounded-xl bg-linear-to-br from-rose-500 to-orange-400 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-rose-900/40">
+            S
+          </div>
+          <div>
+            <span class="text-lg font-bold text-white tracking-tight block">StaySpot</span>
+            <span class="text-xs text-slate-400">Rentals</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 flex-wrap justify-center">
+          <a href="/" class="group relative flex items-center gap-2 text-slate-300 hover:text-white font-medium px-4 py-2.5 rounded-lg transition-all duration-200 hover:bg-slate-800/50">
+            <span class="text-sm">Browse</span>
+          </a>
+          <a href="/favourite" class="group relative flex items-center gap-2 text-slate-300 hover:text-amber-400 font-medium px-4 py-2.5 rounded-lg transition-all duration-200 hover:bg-amber-500/10">
+            <span class="text-sm">Favourites</span>
+          </a>
+          <a href="/host/host-home-list" class="group relative flex items-center gap-2 text-slate-300 hover:text-white font-medium px-4 py-2.5 rounded-lg transition-all duration-200 hover:bg-slate-800/50">
+            <span class="text-sm">My Homes</span>
+          </a>
+          <a href="/host/bookings" class="group relative flex items-center gap-2 text-slate-300 hover:text-white font-medium px-4 py-2.5 rounded-lg transition-all duration-200 hover:bg-slate-800/50">
+            <span class="text-sm">Bookings</span>
+          </a>
+        </div>
+
+        <a href="/host/add-home" class="group relative flex items-center gap-2 bg-linear-to-r from-rose-500 via-orange-400 to-red-500 hover:from-rose-600 hover:via-orange-500 hover:to-red-600 text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-300 shadow-xl shadow-rose-900/60 hover:-translate-y-1 ml-2 whitespace-nowrap">
+          <span class="text-sm font-bold relative z-10">Add Home</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-6 pt-16 pb-8">
+      <div class="text-center mb-12">
+        <span class="inline-block bg-rose-500/10 text-rose-400 text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full border border-rose-500/20 mb-4">Book Your Properties</span>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-3 tracking-tight">Register Homes</h1>
+        <p class="text-slate-400 text-lg max-w-xl mx-auto">List properties in one place. Manage, grow, and welcome guests.</p>
+      </div>
+
+      <% if (registeredHomes.length===0) { %>
+        <div class="flex flex-col items-center justify-center py-24 text-center">
+          <div class="w-20 h-20 rounded-2xl bg-slate-800 flex items-center justify-center mb-6 text-slate-500 text-sm">Empty</div>
+          <h2 class="text-xl font-semibold text-slate-300 mb-2">No homes listed yet</h2>
+          <p class="text-slate-500 mb-8">Get started by registering your first home.</p>
+          <a href="/host/add-home" class="group relative inline-flex items-center gap-3 bg-linear-to-r from-rose-500 via-orange-400 to-red-500 hover:from-rose-600 hover:via-orange-500 hover:to-red-600 text-white font-bold px-8 py-4 rounded-xl transition-all duration-300 shadow-xl shadow-rose-900/60 hover:-translate-y-1">
+            <span class="relative z-10 text-lg font-bold">List Your Home</span>
+          </a>
+        </div>
+      <% } else { %>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <% registeredHomes.forEach((home, i)=> { %>
+            <li class="group bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-rose-500/40 hover:bg-slate-900/80 hover:-translate-y-1 transition-all duration-300 shadow-xl shadow-black/20 cursor-default">
+              <% if (home.photoUrl || home.photourl) { %>
+                <img src="<%= home.photoUrl || home.photourl || '' %>" alt="<%= home.housename || 'Home photo' %>" class="w-full h-48 object-cover">
+              <% } else { %>
+                <div class="w-full h-48 bg-slate-800 flex items-center justify-center text-slate-500 text-sm">No photo</div>
+              <% } %>
+              <div class="p-6">
+                <div class="flex items-start justify-between gap-4 mb-4">
+                  <span class="text-sm font-semibold text-amber-300"><%= home.rating || 'N/A' %>/5</span>
+                  <span class="text-xs text-slate-600 font-mono">#<%= String(i + 1).padStart(3, '0' ) %></span>
+                </div>
+                <h2 class="text-lg font-semibold text-slate-100 group-hover:text-white transition-colors mb-1 truncate">
+                  <%= home.housename || 'Untitled property' %>
+                </h2>
+                <p class="text-slate-500 text-sm"><%= home.location || 'Location not provided' %></p>
+                <p class="text-slate-400 text-sm mt-3"><%= home.description || 'No description provided.' %></p>
+                <div class="mt-4 flex items-center justify-between gap-4 rounded-xl bg-slate-950/60 border border-slate-800 px-4 py-3">
+                  <span class="text-xs font-medium uppercase tracking-wider text-slate-500">Price</span>
+                  <span class="text-sm font-semibold text-slate-100 truncate">
+                    <%= home.price ? `Rs. ${home.price}` : 'Not provided' %>
+                  </span>
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-slate-800 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span class="text-xs text-emerald-400 font-medium">Active</span>
+                </div>
+                <div class="home-actions">
+                  <a href="/home-detail/<%=home._id%>" class="home-action-button home-action-details">Details</a>
+                  <button type="button" class="home-action-button home-action-book">BOOK</button>
+                </div>
+              </div>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+    </div>
+
+    <footer class="max-w-6xl mx-auto px-6 py-8 mt-12 border-t border-slate-800 text-center text-slate-600 text-sm">
+      2026 StaySpot.
+    </footer>
+
+  </body>
+
+  </html>

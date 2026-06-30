@@ -1,0 +1,56 @@
+<%- include('../partials/head') %>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 px-6 py-8" style="font-family: 'Inter', sans-serif;">
+
+  <div class="max-w-5xl mx-auto">
+    <h1 class="text-4xl font-extrabold text-white tracking-tight mb-8">My Homes</h1>
+
+    <% if (registeredHomes && registeredHomes.length > 0) { %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% registeredHomes.forEach(home => { %>
+          <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden hover:bg-slate-700 transition-colors">
+            <% if (home.photoUrl) { %>
+              <img src="<%= home.photoUrl %>" alt="<%= home.housename %>" class="w-full h-44 object-cover">
+            <% } else { %>
+              <div class="w-full h-44 bg-slate-900 flex items-center justify-center text-slate-500 text-sm">No photo</div>
+            <% } %>
+            <div class="p-6">
+              <div class="flex items-start justify-between gap-3 mb-2">
+                <h2 class="text-xl font-bold text-white"><%= home.housename %></h2>
+                <span class="text-sm font-semibold text-amber-300"><%= home.rating || 'N/A' %>/5</span>
+              </div>
+              <p class="text-slate-400 text-sm mb-2"><%= home.location || 'Location not provided' %></p>
+              <p class="text-slate-300 text-lg mb-3">Rs. <%= home.price %> <span class="text-sm text-slate-400">per night</span></p>
+              <p class="text-slate-400 text-sm mb-4"><%= home.description || 'No description provided.' %></p>
+              <div class="flex gap-2">
+                <a href="/host/bookings" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors">
+                  View Bookings
+                </a>
+                <a href="/host/edit-home/<%=home._id%>?editing=true" class="inline-flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-semibold px-4 py-2 rounded-lg transition-colors">
+                  Edit
+                </a>
+                <form action="/host/host-home-delete/<%=home._id%>" method="post">
+                  <button type="submit" class="p-2 bg-red-500 hover:bg-red-700">Delete</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <div class="text-center py-12">
+        <p class="text-slate-400 text-lg mb-6">No homes registered yet</p>
+        <a href="/host/add-home"
+           class="inline-flex items-center gap-2 bg-linear-to-r from-rose-500 to-orange-400 hover:from-rose-600 hover:to-orange-500 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-rose-900/40 hover:-translate-y-0.5">
+          + Add Your First Home
+        </a>
+      </div>
+    <% } %>
+
+    <a href="/" class="inline-flex items-center gap-2 text-slate-400 hover:text-white mt-8 transition-colors">
+      Back to Home
+    </a>
+  </div>
+
+</body>
+</html>
