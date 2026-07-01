@@ -32,23 +32,31 @@ exports.getPosthome=(req,res)=>{
       res.status(500).send('Unable to add home.');
     });
 }
-exports.postEdithome=(req,res)=>{
-  const {id,housename,price,photoUrl,rating,description,location}=req.body;
-  Home.findById(id,(existingHome)=>{
-    if(!existingHome){
-      return res.redirect('/host/host-home-list');
-    }
-    const updatedHome = new Home(housename,price,photoUrl,rating,description,location,id);
-    updatedHome.save()
-      .then(() => {
-        console.log("Home updated successfully for",req.body);
-        res.redirect('/host/host-home-list');
-      })
-      .catch((err) => {
-        console.error("Error updating home:", err);
-        res.status(500).redirect('/host/host-home-list');
-      });
-  });
+exports.postEdithome=(req,res,next)=>{
+  const homeId = req.params.homeid || req.body.id;
+  const {housename,price,photoUrl,rating,description,location}=req.body;
+
+  if (!homeId) {
+    return res.redirect('/host/host-home-list');
+  }
+
+  Home.findById(homeId)
+    .then((existingHome)=>{
+      if(!existingHome){
+        return res.redirect('/host/host-home-list');
+      }
+
+      const updatedHome = new Home(housename,price,photoUrl,rating,description,location,homeId);
+      return updatedHome.save()
+        .then(() => {
+          console.log("Home updated successfully for",req.body);
+          res.redirect('/host/host-home-list');
+        });
+    })
+    .catch((err) => {
+      console.error("Error updating home:", err);
+      next(err);
+    });
 }
 
 exports.getHostHomes = (req,res,next) => {

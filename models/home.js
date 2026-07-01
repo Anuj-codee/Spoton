@@ -1,6 +1,6 @@
 const { mongoConnect } = require("../utils/databaseUtil");
 const { getDB } = require("../utils/databaseUtil");
-const {ObjectId} = require('mongodb');
+const { ObjectId } = require("mongodb");
 
 const normalizeHome = (home) => ({
   housename: home.housename || "",
@@ -30,17 +30,32 @@ module.exports = class Home {
     this.rating = rating;
     this.description = description;
     this.location = location;
-    if(_id){
+    if (_id) {
       this._id = _id;
     }
-     // Allow passing an ID when updating
+    // Allow passing an ID when updating
   }
   save() {
     const db = getDB();
-    return db
-      .collection("homes")
-      .insertOne(this)
-      .then((result) => {});
+    if (this._id) {
+      const updateFields = {
+        housename: this.housename,
+        price: this.price,
+        photoUrl: this.photoUrl || this.photourl || "",
+        photourl: this.photourl || this.photoUrl || "",
+        rating: this.rating,
+        description: this.description,
+        location: this.location,
+      };
+      return db
+        .collection("homes")
+        .updateOne({ _id: new ObjectId(String(this._id)) }, { $set: updateFields });
+    } else {
+      return db
+        .collection("homes")
+        .insertOne(this)
+        .then((result) => {});
+    }
   }
   static fetchALL(callback) {
     const db = getDB();
@@ -49,11 +64,16 @@ module.exports = class Home {
 
   static findById(homeId, callback) {
     const db = getDB();
-    return db.collection("homes").find({_id:new ObjectId(String(homeId))}).next();
+    return db
+      .collection("homes")
+      .find({ _id: new ObjectId(String(homeId)) })
+      .next();
   }
 
   static DeleteById(homeId, callback) {
-        const db = getDB();
-    return db.collection("homes").deleteOne({_id:new ObjectId(String(homeId))});
+    const db = getDB();
+    return db
+      .collection("homes")
+      .deleteOne({ _id: new ObjectId(String(homeId)) });
   }
 };

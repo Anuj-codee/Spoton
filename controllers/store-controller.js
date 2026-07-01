@@ -64,18 +64,18 @@ exports.getHomeDetails = (req, res, next) => {
 
 exports.postAddToFavourite = (req, res, next) => {
   const homeId = req.body.id;
-
-  if (!homeId) {
-    return res.status(400).json({ error: "Home ID is required" });
-  }
-
-  favourite.AddToFavourite(homeId, (success) => {
-    if (success) {
-      res.redirect("/favourite");
-    } else {
-      res.status(500).json({ error: "Failed to add to favourites" });
-    }
-  });
+  const fav=new favourite(homeId);
+  console.log(req.body.id);
+  console.log(req.body); 
+  fav.save().then(result=>{
+    console.log('Fav added',result);
+  })
+  .catch(err=>{
+    console.log('error while adding to favorite',err);
+  })
+  .finally(()=>{
+     res.redirect("/favourite");
+  })
 };
 
 exports.postRemoveFavourite = (req, res, next) => {

@@ -1,37 +1,17 @@
 const fs = require("fs");
 const path = require("path");
 const rootDir = require("../utils/pathUtils");
+const { getDB } = require("../utils/databaseUtil");
 
 const filepath = path.join(rootDir, "data", "favourite.json");
 
 module.exports = class favourite {
-  static AddToFavourite(homeId, callback) {
-    fs.readFile(filepath, "utf-8", (err, data) => {
-      // If the file doesn't exist yet, start with an empty array instead of crashing
-      if (err && err.code === 'ENOENT') {
-        data = "[]";
-      }
-      try {
-        let favourites = data ? JSON.parse(data) : [];
-
-        // Check if homeId already exists in favourites
-        if (!favourites.includes(homeId)) {
-          favourites.push(homeId);
-        }
-
-        // Write updated favourites back to file
-        fs.writeFile(filepath, JSON.stringify(favourites, null, 2), (writeErr) => {
-          if (writeErr) {
-            console.error("Failed to write favourite.json:", writeErr);
-            return callback(false);
-          }
-          callback(true);
-        });
-      } catch (parseErr) {
-        console.error("Failed to parse favourite.json:", parseErr);
-        return callback(false);
-      }
-    });
+  constructor(homeId) {
+    this.homeId = homeId;
+  }
+  save() {
+    const db = getDB();
+    return db.collection("favourites").insertOne(this);
   }
 
   static getFavourite(callback) {
@@ -64,16 +44,20 @@ module.exports = class favourite {
         let favourites = data ? JSON.parse(data) : [];
 
         // Remove homeId from favourites array
-        favourites = favourites.filter(id => id !== homeId);
+        favourites = favourites.filter((id) => id !== homeId);
 
         // Write updated favourites back to file
-        fs.writeFile(filepath, JSON.stringify(favourites, null, 2), (writeErr) => {
-          if (writeErr) {
-            console.error("Failed to write favourite.json:", writeErr);
-            return callback(false);
-          }
-          callback(true);
-        });
+        fs.writeFile(
+          filepath,
+          JSON.stringify(favourites, null, 2),
+          (writeErr) => {
+            if (writeErr) {
+              console.error("Failed to write favourite.json:", writeErr);
+              return callback(false);
+            }
+            callback(true);
+          },
+        );
       } catch (parseErr) {
         console.error("Failed to parse favourite.json:", parseErr);
         return callback(false);
@@ -88,12 +72,16 @@ module.exports = class favourite {
       const updatedFavourites = favourites.filter((id) => id !== homeId);
 
       // 3. Replaced getFilePath() with filepath variable
-      fs.writeFile(filepath, JSON.stringify(updatedFavourites, null, 2), (err) => {
-        if (err) {
-          console.error("Error writing file in DeleteById:", err);
-        }
-        if (callback) callback(err);
-      });
+      fs.writeFile(
+        filepath,
+        JSON.stringify(updatedFavourites, null, 2),
+        (err) => {
+          if (err) {
+            console.error("Error writing file in DeleteById:", err);
+          }
+          if (callback) callback(err);
+        },
+      );
     });
   }
 };
