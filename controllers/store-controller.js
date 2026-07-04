@@ -30,17 +30,25 @@ exports.getBookings = (req, res, next) => {
   });
 };
 exports.getFavouriteList = (req, res, next) => {
-  favourite.getFavourite((favourites) => {
-    Home.fetchALL((registeredHomes) => {
-      const favouriteHomes = registeredHomes.filter((home) =>
-        favourites.includes(home._id),
-      );
-      res.render("store/favourite", {
-        favouriteHomes: favouriteHomes,
-        pageTitle: "My Favourite Homes",
+  favourite
+    .getFavourite()
+    .then((favourites) => {
+      const favouriteHomeIds = favourites
+        .map((fav) => fav.homeId?.toString())
+        .filter(Boolean);
+
+      return Home.fetchALL().then((registeredHomes) => {
+        const favouriteHomes = registeredHomes.filter((home) =>
+          favouriteHomeIds.includes(home._id.toString()),
+        );
+
+        res.render("store/favourite", {
+          favouriteHomes,
+          pageTitle: "My Favourite Homes",
+        });
       });
-    });
-  });
+    })
+    .catch(next);
 };
 
 exports.getHomeDetails = (req, res, next) => {
