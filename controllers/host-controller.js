@@ -46,7 +46,7 @@ exports.postEdithome=(req,res,next)=>{
         return res.redirect('/host/host-home-list');
       }
 
-      const updatedHome = new Home(housename,price,photoUrl,rating,description,location,homeId);
+      const updatedHome = new Home({housename,price,photoUrl,rating,description,location,homeId});
       return updatedHome.save()
         .then(() => {
           console.log("Home updated successfully for",req.body);
