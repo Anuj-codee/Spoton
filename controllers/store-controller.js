@@ -1,8 +1,10 @@
+
+
 const e = require("express");
 const favourite = require("../models/favourite");
 const Home = require("../models/home");
 exports.getHomes = (req, res, next) => {
-  Home.fetchALL()
+  Home.find()
     .then(registeredHomes => {
       res.render("store/home", {
         registeredHomes: registeredHomes,
@@ -12,7 +14,7 @@ exports.getHomes = (req, res, next) => {
     .catch(next);
 };
 exports.getIndex = (req, res, next) => {
-  Home.fetchALL(registeredHomes=> {
+  Home.find(registeredHomes=> {
     console.log(registeredHomes);
     res.render("store/Index", {
       registeredHomes: registeredHomes,
@@ -22,7 +24,7 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getBookings = (req, res, next) => {
-  Home.fetchALL(registeredHomes => {
+  Home.find(registeredHomes => {
     res.render("store/bookings", {
       registeredHomes: registeredHomes,
       pageTitle: "My Bookings",
@@ -37,7 +39,7 @@ exports.getFavouriteList = (req, res, next) => {
         .map((fav) => fav.homeId?.toString())
         .filter(Boolean);
 
-      return Home.fetchALL().then((registeredHomes) => {
+      return Home.find().then((registeredHomes) => {
         const favouriteHomes = registeredHomes.filter((home) =>
           favouriteHomeIds.includes(home._id.toString()),
         );

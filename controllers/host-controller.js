@@ -21,7 +21,15 @@ exports.getEdithome =(req,res,next)=>{
 
 exports.getPosthome=(req,res)=>{
   const {housename,price,photoUrl,rating,description,location}=req.body;
-  const home=new Home(housename,price,photoUrl,rating,description,location)
+  const home=new Home({
+    housename,
+    price,
+    photoUrl,
+    rating,
+    description,
+    location,
+  });
+
   home.save()
     .then(() => {
       console.log("Home registration succeeded for",req.body);
@@ -32,35 +40,30 @@ exports.getPosthome=(req,res)=>{
       res.status(500).send('Unable to add home.');
     });
 }
-exports.postEdithome=(req,res,next)=>{
+exports.postEdithome = (req, res, next) => {
   const homeId = req.params.homeid || req.body.id;
-  const {housename,price,photoUrl,rating,description,location}=req.body;
+  const { housename, price, photoUrl, rating, description, location } = req.body;
 
-  if (!homeId) {
-    return res.redirect('/host/host-home-list');
-  }
-
-  Home.findById(homeId)
-    .then((existingHome)=>{
-      if(!existingHome){
-        return res.redirect('/host/host-home-list');
-      }
-
-      const updatedHome = new Home({housename,price,photoUrl,rating,description,location,homeId});
-      return updatedHome.save()
-        .then(() => {
-          console.log("Home updated successfully for",req.body);
-          res.redirect('/host/host-home-list');
-        });
+  Home.findByIdAndUpdate(homeId, {
+    housename,
+    price,
+    photoUrl,
+    rating,
+    description,
+    location,
+  })
+    .then(() => {
+      console.log("Home updated successfully");
+      res.redirect("/host/host-home-list");
     })
     .catch((err) => {
-      console.error("Error updating home:", err);
+      console.error(err);
       next(err);
     });
-}
+};
 
 exports.getHostHomes = (req,res,next) => {
-  Home.fetchALL()
+  Home.find()
     .then(registeredHomes => {
     console.log(registeredHomes);
     res.render('host/host-home-list', { registeredHomes: registeredHomes, pageTitle: 'host homes' });
@@ -70,7 +73,7 @@ exports.getHostHomes = (req,res,next) => {
 exports.postDeletehome=(req,res)=>{
   const homeid=req.params.homeid;
   console.log(homeid);
-  Home.DeleteById(homeid)
+  Home.findByIdAndDelete(homeid)
     .then(() => {
     res.redirect('/host/host-home-list');
   })  
@@ -78,3 +81,25 @@ exports.postDeletehome=(req,res)=>{
     console.log('Error while deleting',error)
   })
 }
+exports.postAddHome = (req, res) => {
+  const { housename, price, photoUrl, rating, description, location } = req.body;
+
+  const home = new Home({
+    housename,
+    price,
+    photoUrl,
+    rating,
+    description,
+    location,
+  });
+
+  home.save()
+    .then(() => {
+      console.log("Home registration succeeded");
+      res.render("host/addedhome", { pageTitle: "Added home" });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Unable to add home.");
+    });
+};
