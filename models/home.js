@@ -42,4 +42,11 @@ const homeSchema = new mongoose.Schema({
   },
 });
 
+homeSchema.pre('findOneAndDelete',async function (next) {
+  // Pre-delete middleware for home documents
+  const homeId = this.getQuery()._id;
+  await favourite.deleteOne({ houseId: homeId });
+  next();
+});
+
 module.exports = mongoose.model("Home", homeSchema);

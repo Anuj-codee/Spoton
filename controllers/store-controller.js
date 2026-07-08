@@ -33,10 +33,10 @@ exports.getBookings = (req, res, next) => {
 };
 exports.getFavouriteList = (req, res, next) => {
   favourite
-    .getFavourite()
+    .find()
     .then((favourites) => {
       const favouriteHomeIds = favourites
-        .map((fav) => fav.homeId?.toString())
+        .map((fav) => fav.houseId?.toString())
         .filter(Boolean);
 
       return Home.find().then((registeredHomes) => {
@@ -74,11 +74,14 @@ exports.getHomeDetails = (req, res, next) => {
 
 exports.postAddToFavourite = (req, res, next) => {
   const homeId = req.body.id;
-  const fav=new favourite(homeId);
-  console.log(req.body.id);
-  console.log(req.body); 
-  fav.save().then(result=>{
-    console.log('Fav added',result);
+
+  favourite.findOne({houseId:homeId})
+  .then(existingFav=>{
+    if(existingFav){
+      return res.redirect("/favourite");
+    }
+    const fav=new favourite({houseId:homeId});
+    return fav.save();
   })
   .catch(err=>{
     console.log('error while adding to favorite',err);
@@ -95,11 +98,12 @@ exports.postRemoveFavourite = (req, res, next) => {
     return res.status(400).json({ error: "Home ID is required" });
   }
 
-  favourite.RemoveFromFavourite(homeId, (success) => {
-    if (success) {
+  favourite.findOneAndDelete({ houseId: homeId })
+    .then(() => {
       res.redirect("/favourite");
-    } else {
+    })
+    .catch(err => {
+      console.error(err);
       res.status(500).json({ error: "Failed to remove from favourites" });
-    }
-  });
+    });
 };
