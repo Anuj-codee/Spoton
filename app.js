@@ -3,6 +3,7 @@ const path = require("path");
 
 //Local module
 const storeRouter = require("./routes/storeRouter");
+const authRouter = require("./routes/authRouter");
 const { hostRouter } = require("./routes/hostRouter");
 const rootdir = require("./utils/pathUtils");
 
@@ -27,6 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(storeRouter);
 app.use(hostRouter);
+app.use(authRouter);
 
 const PORT = 3000;
 app.use(errorHandler.pageNotFound);
