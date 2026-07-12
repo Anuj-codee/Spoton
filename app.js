@@ -1,5 +1,10 @@
 const express = require("express");
 const path = require("path");
+const session = require("express-session");
+const MongoStore = require("connect-mongodb-session")(session);
+const DB_path =
+  "mongodb+srv://root:root@airbnb.mba1v9j.mongodb.net/?appName=Airbnb";
+
 
 //Local module
 const storeRouter = require("./routes/storeRouter");
@@ -17,6 +22,12 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", "views");
 
+
+const store = new MongoStore({
+  uri: DB_path,
+  collection: "sessions",
+});
+
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use((req, res, next) => {
@@ -26,19 +37,41 @@ app.use((req, res, next) => {
 
 app.use(express.urlencoded({ extended: true }));
 
+app.use(session({
+  secret: "Airbnb is good project",
+  resave: false,
+  saveUninitialized: true,
+  store: store,
+}))
+
+app.use((req, res, next) => {
+  req.isLoggedIn= req.session.isLoggedIn;
+  next();
+});
+
 app.use(storeRouter);
-app.use(hostRouter);
+app.use("/host",hostRouter);
+app.use("/host", (req, res, next) => {
+  if (req.isLoggedIn) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+});
+
 app.use(authRouter);
 
 const PORT = 3000;
 app.use(errorHandler.pageNotFound);
 
-const DB_path="mongodb+srv://root:root@airbnb.mba1v9j.mongodb.net/?appName=Airbnb";
-mongoose.connect(DB_path).then(()=>{
+
+mongoose
+  .connect(DB_path)
+  .then(() => {
     app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
+      console.log(`Server is running at http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("Error while connecting to mongo", err);
   });
-})
-.catch((err)=>{
-  console.log("Error while connecting to mongo",err);
-})

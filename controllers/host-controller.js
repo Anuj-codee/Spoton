@@ -1,7 +1,7 @@
 const favourite = require("../models/favourite");
 const Home = require("../models/home");
 exports.getAddhome =(req,res,next)=>{
-  res.render('host/addhome',{pageTitle: 'Add home'});
+  res.render('host/addhome',{pageTitle: 'Add home',isLoggedIn: req.isLoggedIn,});
 }
 
 
@@ -15,7 +15,7 @@ exports.getEdithome =(req,res,next)=>{
       return res.redirect("/host/host-home-list");
     }
     console.log(homeid,editing,home);
-    res.render('host/edit-home',{pageTitle: 'Edit home',editing:editing,home:home});
+    res.render('host/edit-home',{pageTitle: 'Edit home',editing:editing,home:home,isLoggedIn: req.isLoggedIn,});
   });
 }
 
@@ -33,7 +33,7 @@ exports.getPosthome=(req,res)=>{
   home.save()
     .then(() => {
       console.log("Home registration succeeded for",req.body);
-      res.render('host/addedhome',{pageTitle: 'Added home'});
+      res.render('host/addedhome',{pageTitle: 'Added home',isLoggedIn: req.isLoggedIn,});
     })
     .catch((err) => {
       console.error("Error saving home:", err);
@@ -66,7 +66,7 @@ exports.getHostHomes = (req,res,next) => {
   Home.find()
     .then(registeredHomes => {
     console.log(registeredHomes);
-    res.render('host/host-home-list', { registeredHomes: registeredHomes, pageTitle: 'host homes' });
+    res.render('host/host-home-list', { registeredHomes: registeredHomes, pageTitle: 'host homes',isLoggedIn: req.isLoggedIn,});
   });
 };
 
@@ -96,7 +96,7 @@ exports.postAddHome = (req, res) => {
   home.save()
     .then(() => {
       console.log("Home registration succeeded");
-      res.render("host/addedhome", { pageTitle: "Added home" });
+      res.render("host/addedhome", { pageTitle: "Added home" ,isLoggedIn: req.isLoggedIn,});
     })
     .catch((err) => {
       console.error(err);

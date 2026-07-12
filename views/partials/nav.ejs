@@ -23,6 +23,7 @@
       >
         <span class="text-sm">Browse</span>
       </a>
+      <% if (isLoggedIn) { %>
       <a
         href="/favourite"
         class="group relative flex items-center gap-2 text-slate-300 hover:text-amber-400 font-medium px-4 py-2.5 rounded-lg transition-all duration-200 hover:bg-amber-500/10"
@@ -41,20 +42,36 @@
       >
         <span class="text-sm">Bookings</span>
       </a>
+      <% } %>
     </div>
 
+    <% if (isLoggedIn) { %>
     <a
       href="/host/add-home"
       class="group relative flex items-center gap-2 bg-linear-to-r from-rose-500 via-orange-400 to-red-500 hover:from-rose-600 hover:via-orange-500 hover:to-red-600 text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-300 shadow-xl shadow-rose-900/60 hover:-translate-y-1 ml-2 whitespace-nowrap"
     >
       <span class="text-sm font-bold relative z-10">Add Home</span>
     </a>
+    <% } %>
+    <% if(!isLoggedIn) { %>
     <a
       href="/login"
       class="group relative flex items-center gap-2 bg-linear-to-r from-rose-500 via-orange-400 to-red-500 hover:from-rose-600 hover:via-orange-500 hover:to-red-600 text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-300 shadow-xl shadow-rose-900/60 hover:-translate-y-1 ml-2 whitespace-nowrap"
     >
       <span class="text-sm font-bold relative z-10">Login</span>
     </a>
-
+    <% } %>
+    <% if (isLoggedIn) { %>
+      <form action="/logout" method="POST">
+        <button
+          type="submit"
+          class="group relative flex items-center gap-2 bg-linear-to-r from-rose-500 via-orange-400 to-red-500 hover:from-rose-600 hover:via-orange-500 hover:to-red-600 text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-300 shadow-xl shadow-rose-900/60 hover:-translate-y-1 ml-2 whitespace-nowrap"
+        >
+          <span class="text-sm font-bold relative z-10">Logout</span>
+        </button>
+      </form>
+      </div>
+      <% } %>
+    </div>
   </div>
 </nav>

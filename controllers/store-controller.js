@@ -9,6 +9,7 @@ exports.getHomes = (req, res, next) => {
       res.render("store/home", {
         registeredHomes: registeredHomes,
         pageTitle: "AirBnb homes",
+        isLoggedIn: req.isLoggedIn,
       });
     })
     .catch(next);
@@ -19,6 +20,7 @@ exports.getIndex = (req, res, next) => {
     res.render("store/Index", {
       registeredHomes: registeredHomes,
       pageTitle: "Index page",
+      isLoggedIn: req.isLoggedIn,
     });
   });
 };
@@ -28,6 +30,7 @@ exports.getBookings = (req, res, next) => {
     res.render("store/bookings", {
       registeredHomes: registeredHomes,
       pageTitle: "My Bookings",
+      isLoggedIn: req.isLoggedIn,
     });
   });
 };
@@ -47,6 +50,7 @@ exports.getFavouriteList = (req, res, next) => {
         res.render("store/favourite", {
           favouriteHomes,
           pageTitle: "My Favourite Homes",
+          isLoggedIn: req.isLoggedIn,
         });
       });
     })
@@ -61,12 +65,14 @@ exports.getHomeDetails = (req, res, next) => {
       if (!home) {
         return res.status(404).render("404", {
           pageTitle: "Home Not Found",
+          isLoggedIn: req.isLoggedIn,
         });
       }
 
       res.render("store/home-detail", {
         home,
         pageTitle: "Home Details",
+        isLoggedIn: req.isLoggedIn,
       });
     })
     .catch(next);
