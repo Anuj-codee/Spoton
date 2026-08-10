@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sign Up</title>
+
+  <link rel="stylesheet" href="/output.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #1E2A26;
+      --paper: #F6F4EE;
+      --moss: #2F5D50;
+      --moss-dark: #234438;
+      --clay: #C1622D;
+      --line: #DCD6C6;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .display {
+      font-family: 'Fraunces', serif;
+    }
+
+    .field {
+      width: 100%;
+      padding: .7rem .95rem;
+      border-radius: .6rem;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: .95rem;
+      transition: border-color .15s, box-shadow .15s;
+      box-sizing: border-box;
+    }
+
+    .field:focus {
+      outline: none;
+      border-color: var(--moss);
+      box-shadow: 0 0 0 3px rgba(47, 93, 80, .15);
+    }
+
+    .field::placeholder {
+      color: #9C978A;
+    }
+
+    .role-card {
+      border: 1px solid var(--line);
+      border-radius: .7rem;
+      padding: .85rem 1rem;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+      display: flex;
+      align-items: flex-start;
+      gap: .6rem;
+    }
+
+    .role-card:has(input:checked) {
+      border-color: var(--moss);
+      background: #EEF3EF;
+    }
+
+    .side-panel {
+      background: radial-gradient(
+        120% 120% at 15% 10%,
+        #3C7361 0%,
+        var(--moss) 45%,
+        var(--moss-dark) 100%
+      );
+    }
+
+    .grain {
+      background-image: radial-gradient(
+        rgba(255, 255, 255, .08) 1px,
+        transparent 1px
+      );
+      background-size: 14px 14px;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-6">
+
+  <div class="w-full max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden grid md:grid-cols-5">
+
+    <!-- Side panel -->
+    <div class="hidden md:flex md:col-span-2 flex-col justify-between p-9 text-white bg-[#2F5D50]">
+
+  <div>
+    <span class="inline-block text-[11px] tracking-[.18em] uppercase text-white/70 font-medium mb-8">
+      Welcome
+    </span>
+
+    <h2 class="display text-[2.1rem] leading-[1.15]">
+      Find your place.<br>
+      Or open your door.
+    </h2>
+  </div>
+
+  <p class="text-white/75 text-sm leading-relaxed max-w-[22ch]">
+    One account, two ways in — book a stay as a guest, or list your space as a host.
+  </p>
+
+</div>
+
+
+    <!-- Form -->
+    <div class="md:col-span-3 p-8 sm:p-10">
+
+      <h1 class="display text-[1.75rem] text-(--ink) mb-1">
+        Create an account
+      </h1>
+
+      <p class="text-sm text-[#6B6558] mb-7">
+        It only takes a minute.
+      </p>
+
+
+      <form action="/signup" method="POST" class="space-y-5">
+
+        <!-- Error message -->
+<% if (typeof errorMessages !== 'undefined' && errorMessages.length > 0) { %>
+
+  <div class="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 shadow-sm">
+    
+    <div class="flex items-start gap-3">
+      
+      <!-- Error icon -->
+      <div class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-red-100 text-red-600">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          class="h-4 w-4"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0ZM10 5.75a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0V6.5a.75.75 0 0 1 .75-.75ZM10 13a.875.875 0 1 0 0 1.75A.875.875 0 0 0 10 13Z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </div>
+
+      <!-- Error content -->
+      <div class="min-w-0">
+        
+        <h3 class="text-sm font-semibold text-red-800">
+          Please fix the following:
+        </h3>
+
+        <ul class="mt-2 space-y-1 text-sm text-red-700">
+          <% errorMessages.forEach(function(error) { %>
+            <li class="flex items-start gap-2">
+              <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-red-500"></span>
+              <span><%= error %></span>
+            </li>
+          <% }); %>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+
+<% } %>
+        <!-- Full name -->
+        <div>
+          <label
+            for="name"
+            class="block text-sm font-medium mb-1.5"
+          >
+            Full name
+          </label>
+
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value="<%= oldInput.name ? oldInput.name:''%>"
+            placeholder="Jordan Lee"
+            required
+            class="field"
+          >
+        </div>
+
+
+        <!-- Email -->
+        <div>
+          <label
+            for="email"
+            class="block text-sm font-medium mb-1.5"
+          >
+            Email
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value="<%= oldInput.email ? oldInput.email:''%>"
+            placeholder="you@example.com"
+            required
+            class="field"
+          >
+        </div>
+
+
+        <!-- Password -->
+        <div class="grid sm:grid-cols-2 gap-4">
+
+          <div>
+            <label
+              for="password"
+              class="block text-sm font-medium mb-1.5"
+            >
+              Password
+            </label>
+
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Create a password"
+              required
+              minlength="8"
+              class="field"
+            >
+          </div>
+
+
+          <div>
+            <label
+              for="confirmPassword"
+              class="block text-sm font-medium mb-1.5"
+            >
+              Confirm password
+            </label>
+
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Repeat it"
+              required
+              minlength="8"
+              class="field"
+            >
+          </div>
+
+        </div>
+
+
+        <!-- Role -->
+        <div>
+
+          <span class="block text-sm font-medium mb-2">
+            I'm signing up as
+          </span>
+
+          <div class="grid grid-cols-2 gap-3">
+
+            <label
+              for="guest"
+              class="role-card"
+            >
+              <input
+                type="radio"
+                name="userType"
+                value="guest"
+                id="guest"
+                class="mt-0.5 accent-(--moss)"
+                checked
+              >
+
+              <span>
+                <span class="block text-sm font-medium">
+                  Guest
+                </span>
+
+                <span class="block text-xs text-[#7A7466]">
+                  Book places to stay
+                </span>
+              </span>
+            </label>
+
+
+            <label
+              for="host"
+              class="role-card"
+            >
+              <input
+                type="radio"
+                name="userType"
+                value="host"
+                id="host"
+                class="mt-0.5 accent-(--moss)"
+              >
+
+              <span>
+                <span class="block text-sm font-medium">
+                  Host
+                </span>
+
+                <span class="block text-xs text-[#7A7466]">
+                  List your space
+                </span>
+              </span>
+            </label>
+
+          </div>
+        </div>
+
+
+        <!-- Terms -->
+        <label
+          for="terms"
+          class="flex items-start gap-2.5 text-sm text-[#4A463C] pt-1"
+        >
+
+          <input
+            type="checkbox"
+            name="terms"
+            value="terms"
+            id="terms"
+            required
+            class="mt-0.5 accent-(--moss)"
+          >
+
+          <span>
+            I agree to the
+            <a
+              href="#"
+              class="text-(--moss) underline underline-offset-2"
+            >
+              terms and conditions
+            </a>
+          </span>
+
+        </label>
+
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="w-full bg-(--moss) text-white font-medium py-2.5 rounded-lg hover:bg-(--moss-dark) transition-colors"
+        >
+          Sign up
+        </button>
+
+      </form>
+
+
+      <!-- Login -->
+      <p class="text-center text-sm text-[#6B6558] mt-6">
+        Already have an account?
+
+        <a
+          href="/login"
+          class="text-(--moss) hover:underline font-medium"
+        >
+          Log in
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>

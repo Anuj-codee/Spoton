@@ -1,77 +1,55 @@
-<nav
-  class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50"
->
-  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-    <div class="flex items-center gap-3 min-w-fit">
-      <div
-        class="w-10 h-10 rounded-xl bg-linear-to-br from-rose-500 to-orange-400 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-rose-900/40"
-      >
-        S
-      </div>
-      <div>
-        <span class="text-lg font-bold text-white tracking-tight block"
-          >StaySpot</span
-        >
-        <span class="text-xs text-slate-400">Rentals</span>
-      </div>
-    </div>
+<nav class="border-b border-[#DCD6C6] sticky top-0 z-50 bg-white shadow-sm">
+  <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3 min-w-fit">
+        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#2F5D50] text-lg font-bold text-white">
+          S
+        </div>
+        <div>
+          <span class="block text-base font-semibold tracking-tight text-[#1E2A26]">StaySpot</span>
+          <span class="text-xs text-[#9C978A]">Rentals</span>
+        </div>
+      </a>
 
-    <div class="flex items-center gap-2 flex-wrap justify-center">
-      <a
-        href="/"
-        class="group relative flex items-center gap-2 text-slate-300 hover:text-white font-medium px-4 py-2.5 rounded-lg transition-all duration-200 hover:bg-slate-800/50"
-      >
-        <span class="text-sm">Browse</span>
-      </a>
-      <% if (isLoggedIn) { %>
-      <a
-        href="/favourite"
-        class="group relative flex items-center gap-2 text-slate-300 hover:text-amber-400 font-medium px-4 py-2.5 rounded-lg transition-all duration-200 hover:bg-amber-500/10"
-      >
-        <span class="text-sm">Favourites</span>
-      </a>
-      <a
-        href="/host/host-home-list"
-        class="group relative flex items-center gap-2 text-slate-300 hover:text-white font-medium px-4 py-2.5 rounded-lg transition-all duration-200 hover:bg-slate-800/50"
-      >
-        <span class="text-sm">My Homes</span>
-      </a>
-      <a
-        href="/host/bookings"
-        class="group relative flex items-center gap-2 text-slate-300 hover:text-white font-medium px-4 py-2.5 rounded-lg transition-all duration-200 hover:bg-slate-800/50"
-      >
-        <span class="text-sm">Bookings</span>
-      </a>
-      <% } %>
-    </div>
-
-    <% if (isLoggedIn) { %>
-    <a
-      href="/host/add-home"
-      class="group relative flex items-center gap-2 bg-linear-to-r from-rose-500 via-orange-400 to-red-500 hover:from-rose-600 hover:via-orange-500 hover:to-red-600 text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-300 shadow-xl shadow-rose-900/60 hover:-translate-y-1 ml-2 whitespace-nowrap"
-    >
-      <span class="text-sm font-bold relative z-10">Add Home</span>
-    </a>
-    <% } %>
-    <% if(!isLoggedIn) { %>
-    <a
-      href="/login"
-      class="group relative flex items-center gap-2 bg-linear-to-r from-rose-500 via-orange-400 to-red-500 hover:from-rose-600 hover:via-orange-500 hover:to-red-600 text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-300 shadow-xl shadow-rose-900/60 hover:-translate-y-1 ml-2 whitespace-nowrap"
-    >
-      <span class="text-sm font-bold relative z-10">Login</span>
-    </a>
-    <% } %>
-    <% if (isLoggedIn) { %>
-      <form action="/logout" method="POST">
-        <button
-          type="submit"
-          class="group relative flex items-center gap-2 bg-linear-to-r from-rose-500 via-orange-400 to-red-500 hover:from-rose-600 hover:via-orange-500 hover:to-red-600 text-white font-semibold px-6 py-2.5 rounded-xl transition-all duration-300 shadow-xl shadow-rose-900/60 hover:-translate-y-1 ml-2 whitespace-nowrap"
-        >
-          <span class="text-sm font-bold relative z-10">Logout</span>
-        </button>
-      </form>
+      <!-- Center Nav Links -->
+      <div class="hidden gap-1 sm:flex">
+        <a href="/" class="rounded-lg px-4 py-2.5 text-sm font-medium text-[#1E2A26] transition hover:bg-[#F6F4EE]">
+          Browse
+        </a>
+        <% if (isLoggedIn) { %>
+        <a href="/favourite" class="rounded-lg px-4 py-2.5 text-sm font-medium text-[#1E2A26] transition hover:bg-[#F6F4EE]">
+          Favourites
+        </a>
+        <a href="/host/host-home-list" class="rounded-lg px-4 py-2.5 text-sm font-medium text-[#1E2A26] transition hover:bg-[#F6F4EE]">
+          My Homes
+        </a>
+        <a href="/host/bookings" class="rounded-lg px-4 py-2.5 text-sm font-medium text-[#1E2A26] transition hover:bg-[#F6F4EE]">
+          Bookings
+        </a>
+        <% } %>
       </div>
-      <% } %>
+
+      <!-- Right Nav Buttons -->
+      <div class="flex items-center gap-2">
+        <% if (isLoggedIn) { %>
+        <a href="/host/add-home" class="rounded-lg bg-[#2F5D50] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#234438]">
+          Add Home
+        </a>
+        <form action="/logout" method="POST" class="inline">
+          <button type="submit" class="rounded-lg bg-[#F6F4EE] px-5 py-2.5 text-sm font-semibold text-[#1E2A26] transition hover:bg-[#DCD6C6]">
+            Logout
+          </button>
+        </form>
+        <% } else { %>
+        <a href="/login" class="rounded-lg bg-[#F6F4EE] px-5 py-2.5 text-sm font-semibold text-[#1E2A26] transition hover:bg-[#DCD6C6]">
+          Login
+        </a>
+        <a href="/signup" class="rounded-lg bg-[#2F5D50] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#234438]">
+          Signup
+        </a>
+        <% } %>
+      </div>
     </div>
   </div>
 </nav>

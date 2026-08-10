@@ -81,20 +81,21 @@ exports.getHomeDetails = (req, res, next) => {
 exports.postAddToFavourite = (req, res, next) => {
   const homeId = req.body.id;
 
-  favourite.findOne({houseId:homeId})
-  .then(existingFav=>{
-    if(existingFav){
-      return res.redirect("/favourite");
-    }
-    const fav=new favourite({houseId:homeId});
-    return fav.save();
-  })
-  .catch(err=>{
-    console.log('error while adding to favorite',err);
-  })
-  .finally(()=>{
-     res.redirect("/favourite");
-  })
+  favourite.findOne({ houseId: homeId })
+    .then((existingFav) => {
+      if (existingFav) {
+        return res.redirect("/favourite");
+      }
+
+      const fav = new favourite({ houseId: homeId });
+      return fav.save().then(() => {
+        return res.redirect("/favourite");
+      });
+    })
+    .catch((err) => {
+      console.log('error while adding to favorite', err);
+      next(err);
+    });
 };
 
 exports.postRemoveFavourite = (req, res, next) => {

@@ -1,78 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <title>Login</title>
-</head>
-<body class="min-h-screen bg-linear-to-br from-blue-100 via-white to-blue-200 flex items-center justify-center">
+<%- include('../partials/head') %>
+<body class="min-h-screen bg-[#F6F4EE] text-[#1E2A26] font-sans">
+  <div class="min-h-screen flex items-center justify-center px-4 py-10 sm:px-6">
+    <div class="w-full max-w-4xl overflow-hidden rounded-[2rem] border border-[#DCD6C6] bg-white shadow-[0_30px_90px_rgba(30,42,38,0.12)]">
+      <div class="grid md:grid-cols-[1fr_420px]">
+        <section class="hidden md:flex md:flex-col md:justify-between bg-[radial-gradient(circle_at_top_left,#3A7264_0%,#2F5D50_55%,#1F453B_100%)] p-10 text-white">
+          <div>
+            <div class="inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.20em]">
+              StaySpot
+            </div>
+            <h2 class="font-display mt-12 text-4xl leading-tight tracking-tight">
+              Welcome back to your next stay
+            </h2>
+          </div>
+          <div class="space-y-3">
+            <p class="text-sm leading-6 text-white/80">
+              Manage favourites, view bookings, and keep your hosting flow moving.
+            </p>
+            <div class="flex items-center gap-2">
+              <span class="h-2 w-2 rounded-full bg-white"></span>
+              <span class="text-xs font-semibold tracking-[0.20em] uppercase text-white/80">Guest access</span>
+            </div>
+          </div>
+        </section>
 
-  <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
-    
-    <h1 class="text-3xl font-bold text-center text-gray-800">
-      Welcome Back
-    </h1>
-    <p class="text-center text-gray-500 mt-2 mb-8">
-      Sign in to your account
-    </p>
+        <section class="p-8 sm:p-10 lg:p-12">
+          <div class="mb-8">
+            <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-[#EEF3EF] text-2xl shadow-sm">
+              👋
+            </div>
+            <h1 class="font-display text-4xl leading-none tracking-tight text-[#1E2A26]">
+              Welcome Back
+            </h1>
+            <p class="mt-3 text-sm font-medium text-[#7A7466]">
+              Sign in to continue to your account
+            </p>
+          </div>
 
-    <form action="/login" method="POST" class="space-y-5">
+          <form action="/login" method="POST" class="space-y-5">
+            <div>
+              <label for="email" class="mb-2 block text-sm font-semibold text-[#1E2A26]">
+                Email Address
+              </label>
+              <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+                class="w-full rounded-xl border border-[#DCD6C6] bg-[#F8F6F1] px-4 py-3 text-sm text-[#1E2A26] outline-none transition duration-300 placeholder:text-[#9C978A] focus:border-[#2F5D50] focus:bg-white focus:ring-4 focus:ring-[#D8ECE5]"
+              />
+            </div>
 
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">
-          Email
-        </label>
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter your email"
-          required
-          class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
-        />
+            <div>
+              <label for="password" class="mb-2 block text-sm font-semibold text-[#1E2A26]">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+                class="w-full rounded-xl border border-[#DCD6C6] bg-[#F8F6F1] px-4 py-3 text-sm text-[#1E2A26] outline-none transition duration-300 placeholder:text-[#9C978A] focus:border-[#2F5D50] focus:bg-white focus:ring-4 focus:ring-[#D8ECE5]"
+              />
+            </div>
+
+            <div class="flex items-center justify-between gap-3 text-sm">
+              <label class="flex items-center gap-2 text-[#5F5B54]">
+                <input type="checkbox" class="h-4 w-4 rounded border-[#C8C0AA] text-[#2F5D50] focus:ring-[#2F5D50]">
+                <span>Remember me</span>
+              </label>
+              <a href="/forgot-password" class="font-semibold text-[#2F5D50] transition hover:text-[#234438] hover:underline">
+                Forgot Password?
+              </a>
+            </div>
+
+            <button type="submit" class="w-full rounded-xl bg-[#2F5D50] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#2F5D50]/25 transition duration-300 hover:bg-[#234438] hover:shadow-xl">
+              Login →
+            </button>
+          </form>
+
+          <div class="my-7 flex items-center">
+            <div class="h-px flex-1 bg-[#DCD6C6]"></div>
+            <span class="px-4 text-xs font-bold uppercase tracking-[0.22em] text-[#7A7466]">OR</span>
+            <div class="h-px flex-1 bg-[#DCD6C6]"></div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <button class="flex items-center justify-center gap-2 rounded-xl border border-[#DCD6C6] bg-white py-3 text-sm font-semibold text-[#1E2A26] transition hover:bg-[#F6F4EE]">
+              <span aria-hidden="true">🌐</span>
+              Google
+            </button>
+            <button class="flex items-center justify-center gap-2 rounded-xl border border-[#DCD6C6] bg-white py-3 text-sm font-semibold text-[#1E2A26] transition hover:bg-[#F6F4EE]">
+              <span aria-hidden="true">🍎</span>
+              Apple
+            </button>
+          </div>
+
+          <p class="mt-8 text-center text-sm text-[#7A7466]">
+            Don't have an account?
+            <a href="/signup" class="font-bold text-[#2F5D50] transition hover:text-[#234438] hover:underline">
+              Create Account
+            </a>
+          </p>
+        </section>
       </div>
-
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">
-          Password
-        </label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter your password"
-          required
-          class="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition"
-        />
-      </div>
-
-      <div class="flex items-center justify-between text-sm">
-        <label class="flex items-center gap-2">
-          <input type="checkbox" class="rounded">
-          <span>Remember me</span>
-        </label>
-
-        <a href="/forgot-password" class="text-blue-600 hover:underline">
-          Forgot Password?
-        </a>
-      </div>
-
-      <button
-        type="submit"
-        class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300 hover:bg-blue-700 hover:scale-y-105 hover:shadow-lg"
-      >
-        Login
-      </button>
-
-    </form>
-
-    <p class="text-center text-gray-600 mt-6">
-      Don't have an account?
-      <a href="/signup" class="text-blue-600 font-semibold hover:underline">
-        Sign Up
-      </a>
-    </p>
-
+    </div>
   </div>
-
 </body>
 </html>

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",
-    "tailwind": "npx tailwindcss -i ./views/input.css -o ./public/output.css --watch --content \"./views/**/*.{ejs,js}\"",
+    "tailwind": "npx tailwindcss -i ./views/input.css -o ./public/output.css --watch",
     "dev": "npm run start & npm run tailwind"
   },
   "keywords": [],
@@ -23,6 +23,7 @@
     "ejs": "^5.0.1",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
+    "express-validator": "^7.3.2",
     "mongodb": "^7.4.0",
     "mongoose": "^9.7.3",
     "mysql2": "^3.22.5",

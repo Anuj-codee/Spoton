@@ -1,128 +1,145 @@
 <%- include('../partials/head') %>
+<body class="min-h-screen bg-[#F6F4EE] text-[#1E2A26]" style="font-family: 'Inter', sans-serif;">
+<%- include('../partials/nav') %>
 
-</head>
-<body class="min-h-screen bg-slate-950 text-slate-100 flex flex-col" style="font-family: 'Inter', sans-serif;">
-
-  <!-- Navbar -->
-  <nav class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center gap-3">
-      <a href="/" class="flex items-center gap-3 group">
-        <div class="w-8 h-8 rounded-xl bg-linear-to-br from-rose-500 to-orange-400 flex items-center justify-center text-white font-bold text-sm">S</div>
-        <span class="text-xl font-bold text-white tracking-tight group-hover:text-rose-300 transition-colors">StaySpot</span>
-      </a>
-    </div>
-  </nav>
-
-  <!-- Main Content -->
-  <main class="flex-1 flex items-center justify-center px-6 py-16">
-    <div class="w-full max-w-2xl">
-
-      <!-- Card -->
-      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl shadow-black/40">
-
-        <!-- Icon + Heading -->
-        <div class="text-center mb-8">
-          <div class="w-16 h-16 rounded-2xl bg-linear-to-br from-rose-500/20 to-orange-400/10 border border-rose-500/20 flex items-center justify-center text-3xl mx-auto mb-4">🏡</div>
-          <h1 class="text-2xl font-extrabold text-white tracking-tight mb-1">List Your Home</h1>
-          <p class="text-slate-400 text-sm">Register your property and start earning today.</p>
-        </div>
-
-        <!-- Form -->
-        <form action="/host/add-home" method="POST" class="space-y-5">
-          <div>
-            <label for="housename" class="block text-sm font-medium text-slate-300 mb-2">Property Name</label>
-            <input
-              id="housename"
-              type="text"
-              name="housename"
-              placeholder="e.g. Cozy Lake Cottage"
-              required
-              class="w-full bg-slate-800 border border-slate-700 text-slate-100 placeholder-slate-500 rounded-xl px-4 py-3 text-sm outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 transition-all duration-200"
-            >
-          </div>
-          <div>
-            <label for="price" class="block text-sm font-medium text-slate-300 mb-2">Property price</label>
-            <input
-              id="price"
-              type="number"
-              name="price"
-              placeholder="e.g. 1000000"
-              required
-              class="w-full bg-slate-800 border border-slate-700 text-slate-100 placeholder-slate-500 rounded-xl px-4 py-3 text-sm outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 transition-all duration-200"
-            >
-          </div>
-          <div>
-            <label for="photoUrl" class="block text-sm font-medium text-slate-300 mb-2">Photo URL</label>
-            <input
-              id="photoUrl"
-              type="url"
-              name="photoUrl"
-              placeholder="https://example.com/home.jpg"
-              required
-              class="w-full bg-slate-800 border border-slate-700 text-slate-100 placeholder-slate-500 rounded-xl px-4 py-3 text-sm outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 transition-all duration-200"
-            >
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+  <main class="min-h-screen px-4 py-6 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl overflow-hidden rounded-4xl border border-[#DCD6C6] bg-white shadow-[0_20px_70px_rgba(30,42,38,0.12)]">
+      <div class="grid lg:grid-cols-[0.95fr_1.55fr]">
+        
+        <!-- Left Panel -->
+        <section class="relative overflow-hidden bg-[radial-gradient(120%_120%_at_15%_10%,#3C7361_0%,#2F5D50_45%,#234438_100%)] p-8 text-white sm:p-10 lg:p-12">
+          <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(rgba(255,255,255,0.18) 1px, transparent 1px); background-size: 14px 14px;"></div>
+          <div class="relative flex h-full flex-col justify-between gap-8">
             <div>
-              <label for="rating" class="block text-sm font-medium text-slate-300 mb-2">Rating</label>
-              <input
-                id="rating"
-                type="number"
-                name="rating"
-                min="0"
-                max="5"
-                step="0.1"
-                placeholder="e.g. 4.8"
-                required
-                class="w-full bg-slate-800 border border-slate-700 text-slate-100 placeholder-slate-500 rounded-xl px-4 py-3 text-sm outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 transition-all duration-200"
-              >
+              <span class="mb-6 inline-block rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/80">List a Home</span>
+              <h1 class="font-['Fraunces'] text-3xl leading-tight sm:text-4xl">
+                Share your space with travelers.
+              </h1>
+              <p class="mt-4 max-w-[28ch] text-sm leading-7 text-white/80 sm:text-base">
+                Turn your property into a thriving rental business. Complete, showcase, and watch bookings grow.
+              </p>
             </div>
+
+            <div class="space-y-4">
+              <div class="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-sm">
+                <p class="text-sm font-semibold">✓ Simple setup</p>
+                <p class="text-xs text-white/70">Fill in a few details and go live</p>
+              </div>
+              <div class="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-sm">
+                <p class="text-sm font-semibold">✓ Full control</p>
+                <p class="text-xs text-white/70">Manage availability and pricing</p>
+              </div>
+              <div class="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-sm">
+                <p class="text-sm font-semibold">✓ Get paid</p>
+                <p class="text-xs text-white/70">Secure transactions every booking</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right Panel - Form -->
+        <section class="bg-[#FCFBF7] p-6 sm:p-8 lg:p-10">
+          <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-[#1E2A26] sm:text-3xl">Register your home</h2>
+            <p class="mt-2 text-sm text-[#6B6558]">It only takes a few minutes to get started.</p>
+          </div>
+
+          <form action="/host/add-home" method="POST" class="space-y-5">
+            
             <div>
-              <label for="location" class="block text-sm font-medium text-slate-300 mb-2">Location</label>
+              <label for="housename" class="block text-sm font-medium text-[#1E2A26] mb-1.5">Property Name</label>
               <input
-                id="location"
+                id="housename"
                 type="text"
-                name="location"
-                placeholder="e.g. Goa, India"
+                name="housename"
+                placeholder="e.g. Cozy Lake Cottage"
                 required
-                class="w-full bg-slate-800 border border-slate-700 text-slate-100 placeholder-slate-500 rounded-xl px-4 py-3 text-sm outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 transition-all duration-200"
+                class="w-full rounded-lg border border-[#DCD6C6] bg-white px-4 py-2.5 text-[#1E2A26] placeholder-[#9C978A] text-sm transition focus:border-[#2F5D50] focus:outline-none focus:ring-2 focus:ring-[#2F5D50]/15"
               >
             </div>
-          </div>
-          <div>
-            <label for="description" class="block text-sm font-medium text-slate-300 mb-2">Description</label>
-            <textarea
-              id="description"
-              name="description"
-              rows="4"
-              placeholder="Describe the property, rooms, amenities, and guest experience"
-              required
-              class="w-full bg-slate-800 border border-slate-700 text-slate-100 placeholder-slate-500 rounded-xl px-4 py-3 text-sm outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-500/20 transition-all duration-200 resize-y"
-            ></textarea>
-          </div>
 
-          <button
-            type="submit"
-            class="w-full bg-linear-to-r from-rose-500 to-orange-400 hover:from-rose-600 hover:to-orange-500 text-white font-semibold py-3 rounded-xl transition-all duration-200 shadow-lg shadow-rose-900/40 hover:shadow-rose-800/60 hover:-translate-y-0.5 active:translate-y-0"
-          >
-            Register Home
-          </button>
-        </form>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label for="price" class="block text-sm font-medium text-[#1E2A26] mb-1.5">Property Price</label>
+                <input
+                  id="price"
+                  type="number"
+                  name="price"
+                  placeholder="e.g. 1000000"
+                  required
+                  class="w-full rounded-lg border border-[#DCD6C6] bg-white px-4 py-2.5 text-[#1E2A26] placeholder-[#9C978A] text-sm transition focus:border-[#2F5D50] focus:outline-none focus:ring-2 focus:ring-[#2F5D50]/15"
+                >
+              </div>
+              <div>
+                <label for="rating" class="block text-sm font-medium text-[#1E2A26] mb-1.5">Rating</label>
+                <input
+                  id="rating"
+                  type="number"
+                  name="rating"
+                  min="0"
+                  max="5"
+                  step="0.1"
+                  placeholder="e.g. 4.8"
+                  required
+                  class="w-full rounded-lg border border-[#DCD6C6] bg-white px-4 py-2.5 text-[#1E2A26] placeholder-[#9C978A] text-sm transition focus:border-[#2F5D50] focus:outline-none focus:ring-2 focus:ring-[#2F5D50]/15"
+                >
+              </div>
+            </div>
 
-        <!-- Back link -->
-        <p class="text-center text-slate-500 text-sm mt-6">
-          Already listed?
-          <a href="/" class="text-rose-400 hover:text-rose-300 font-medium transition-colors">View all homes →</a>
-        </p>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label for="location" class="block text-sm font-medium text-[#1E2A26] mb-1.5">Location</label>
+                <input
+                  id="location"
+                  type="text"
+                  name="location"
+                  placeholder="e.g. Goa, India"
+                  required
+                  class="w-full rounded-lg border border-[#DCD6C6] bg-white px-4 py-2.5 text-[#1E2A26] placeholder-[#9C978A] text-sm transition focus:border-[#2F5D50] focus:outline-none focus:ring-2 focus:ring-[#2F5D50]/15"
+                >
+              </div>
+              <div>
+                <label for="photoUrl" class="block text-sm font-medium text-[#1E2A26] mb-1.5">Photo URL</label>
+                <input
+                  id="photoUrl"
+                  type="url"
+                  name="photoUrl"
+                  placeholder="https://example.com/home.jpg"
+                  required
+                  class="w-full rounded-lg border border-[#DCD6C6] bg-white px-4 py-2.5 text-[#1E2A26] placeholder-[#9C978A] text-sm transition focus:border-[#2F5D50] focus:outline-none focus:ring-2 focus:ring-[#2F5D50]/15"
+                >
+              </div>
+            </div>
+
+            <div>
+              <label for="description" class="block text-sm font-medium text-[#1E2A26] mb-1.5">Description</label>
+              <textarea
+                id="description"
+                name="description"
+                rows="5"
+                placeholder="Describe the property, rooms, amenities, and guest experience"
+                required
+                class="w-full rounded-lg border border-[#DCD6C6] bg-white px-4 py-2.5 text-[#1E2A26] placeholder-[#9C978A] text-sm transition focus:border-[#2F5D50] focus:outline-none focus:ring-2 focus:ring-[#2F5D50]/15 resize-none"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full rounded-lg bg-[#2F5D50] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#234438] focus:outline-none focus:ring-2 focus:ring-[#2F5D50]/30 focus:ring-offset-2 focus:ring-offset-white"
+            >
+              Register Home
+            </button>
+          </form>
+
+          <p class="mt-6 text-center text-sm text-[#6B6558]">
+            <a href="/" class="font-medium text-[#2F5D50] hover:underline">Back to homes →</a>
+          </p>
+        </section>
 
       </div>
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="text-center text-slate-700 text-xs py-6">
-    © 2026 StaySpot. All rights reserved.
-  </footer>
-
 </body>
 </html>
+

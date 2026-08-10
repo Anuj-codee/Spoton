@@ -1,59 +1,80 @@
 <%- include('../partials/head') %>
-<%- include('../partials/nav') %>
-</head>
+<body class="min-h-screen bg-[#F6F4EE] text-[#1E2A26] font-sans">
+  <%- include('../partials/nav') %>
 
-<body class="min-h-screen bg-slate-950 text-slate-100 px-6 py-8" style="font-family: 'Inter', sans-serif;">
- 
-  <div class="max-w-5xl mx-auto">
-     
-    <h1 class="text-4xl font-extrabold text-white tracking-tight mb-8">My Homes</h1>
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <section class="mb-8">
+      <div class="flex items-end justify-between gap-6">
+        <div>
+          <h1 class="font-display text-4xl sm:text-5xl leading-none tracking-tight text-[#1E2A26] mb-2">My Homes</h1>
+          <p class="text-sm text-[#7A7466]">Manage the places you've listed.</p>
+        </div>
+        <a href="/host/add-home" class="hidden sm:inline-flex items-center gap-2 rounded-xl bg-[#2F5D50] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#234438]">
+          + Add Home
+        </a>
+      </div>
+    </section>
 
     <% if (registeredHomes && registeredHomes.length > 0) { %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         <% registeredHomes.forEach(home => { %>
-          <div class="bg-slate-800 rounded-lg shadow-lg overflow-hidden hover:bg-slate-700 transition-colors">
-            <% if (home.photoUrl) { %>
-              <img src="<%= home.photoUrl %>" alt="<%= home.housename %>" class="w-full h-44 object-cover">
-            <% } else { %>
-              <div class="w-full h-44 bg-slate-900 flex items-center justify-center text-slate-500 text-sm">No photo</div>
-            <% } %>
+          <article class="group overflow-hidden rounded-[28px] border border-[#DCD6C6] bg-white shadow-[0_10px_35px_rgba(30,42,38,0.06)] transition-all duration-250 hover:-translate-y-1 hover:shadow-[0_24px_80px_rgba(47,93,80,0.14)]">
+            <div class="relative">
+              <% if (home.photoUrl) { %>
+                <img src="<%= home.photoUrl %>" alt="<%= home.housename %>" class="w-full h-48 object-cover">
+              <% } else { %>
+                <div class="w-full h-48 bg-[#EFEBE0] flex items-center justify-center text-sm font-medium text-[#7A7466]">No photo</div>
+              <% } %>
+              <span class="absolute right-4 top-4 rounded-full bg-white/95 px-3 py-1 text-xs font-bold text-[#2F5D50] shadow-sm">
+                <%= home.rating || 'N/A' %>/5
+              </span>
+            </div>
+
             <div class="p-6">
-              <div class="flex items-start justify-between gap-3 mb-2">
-                <h2 class="text-xl font-bold text-white"><%= home.housename %></h2>
-                <span class="text-sm font-semibold text-amber-300"><%= home.rating || 'N/A' %>/5</span>
+              <div class="flex items-start justify-between gap-4 mb-3">
+                <div>
+                  <h2 class="font-display text-2xl leading-none text-[#1E2A26] mb-2"><%= home.housename %></h2>
+                  <p class="text-sm font-medium text-[#7A7466]"><%= home.location || 'Location not provided' %></p>
+                </div>
               </div>
-              <p class="text-slate-400 text-sm mb-2"><%= home.location || 'Location not provided' %></p>
-              <p class="text-slate-300 text-lg mb-3">Rs. <%= home.price %> <span class="text-sm text-slate-400">per night</span></p>
-              <p class="text-slate-400 text-sm mb-4"><%= home.description || 'No description provided.' %></p>
-              <div class="flex gap-2">
-                <a href="/host/bookings" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors">
-                  View Bookings
+
+              <div class="mb-4">
+                <p class="text-lg font-bold text-[#1E2A26]">Rs. <%= home.price %> <span class="text-sm font-medium text-[#7A7466]">per night</span></p>
+              </div>
+
+              <p class="text-sm leading-6 text-[#7A7466] mb-5"><%= home.description || 'No description provided.' %></p>
+
+              <div class="flex flex-wrap items-center gap-2">
+                <a href="/host/bookings" class="inline-flex items-center justify-center rounded-lg bg-[#2F5D50] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#234438]">
+                  View bookings
                 </a>
-                <a href="/host/edit-home/<%=home._id%>?editing=true" class="inline-flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-white font-semibold px-4 py-2 rounded-lg transition-colors">
+                <a href="/host/edit-home/<%= home._id %>?editing=true" class="inline-flex items-center justify-center rounded-lg border border-[#DCD6C6] bg-[#F6F4EE] px-4 py-2 text-sm font-semibold text-[#1E2A26] transition hover:bg-[#DCD6C6]">
                   Edit
                 </a>
-                <form action="/host/host-home-delete/<%=home._id%>" method="post">
-                  <button type="submit" class="p-2 bg-red-500 hover:bg-red-700">Delete</button>
+                <form action="/host/host-home-delete/<%= home._id %>" method="post" class="ml-auto">
+                  <button type="submit" class="inline-flex items-center justify-center rounded-lg border border-[#C1622D] px-4 py-2 text-sm font-semibold text-[#C1622D] transition hover:bg-[#C1622D] hover:text-white">
+                    Delete
+                  </button>
                 </form>
               </div>
             </div>
-          </div>
+          </article>
         <% }); %>
-      </div>
+      </section>
     <% } else { %>
-      <div class="text-center py-12">
-        <p class="text-slate-400 text-lg mb-6">No homes registered yet</p>
-        <a href="/host/add-home"
-           class="inline-flex items-center gap-2 bg-linear-to-r from-rose-500 to-orange-400 hover:from-rose-600 hover:to-orange-500 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 shadow-lg shadow-rose-900/40 hover:-translate-y-0.5">
-          + Add Your First Home
+      <section class="rounded-[28px] border border-dashed border-[#DCD6C6] bg-white py-14 text-center shadow-sm">
+        <p class="font-display text-2xl text-[#1E2A26] mb-2">No homes registered yet</p>
+        <p class="text-sm text-[#7A7466] mb-6">List your first place to start welcoming guests.</p>
+        <a href="/host/add-home" class="inline-flex items-center gap-2 rounded-xl bg-[#2F5D50] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#234438]">
+          + Add your first home
         </a>
-      </div>
+      </section>
     <% } %>
 
-    <a href="/" class="inline-flex items-center gap-2 text-slate-400 hover:text-white mt-8 transition-colors">
-      Back to Home
+    <a href="/" class="inline-flex items-center gap-2 text-sm font-semibold text-[#7A7466] hover:text-[#1E2A26] mt-10 transition-colors">
+      ← Back to home
     </a>
-  </div>
-
+  </main>
+ <%- include('../partials/footer') %>
 </body>
 </html>
