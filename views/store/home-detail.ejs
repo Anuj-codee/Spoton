@@ -50,9 +50,9 @@
             </a>
           </div>
 
-          <% if (home.photoUrl || home.photourl) { %>
+          <% if (home.photo || home.photo) { %>
             <div class="overflow-hidden rounded-[1.5rem] border border-[#DCD6C6] bg-white shadow-sm">
-              <img src="<%= home.photoUrl || home.photourl || '' %>" alt="<%= home.housename || 'Home photo' %>" class="h-72 w-full object-cover">
+              <img src="<%= home.photo || home.photo || '' %>" alt="<%= home.housename || 'Home photo' %>" class="h-72 w-full object-cover">
             </div>
           <% } else { %>
             <div class="flex h-72 w-full items-center justify-center rounded-[1.5rem] border border-dashed border-[#DCD6C6] bg-[#F6F4EE] text-sm text-[#6B6558]">

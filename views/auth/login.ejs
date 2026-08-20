@@ -36,7 +36,10 @@
             </p>
           </div>
 
+          <%- include('../partials/errors', { errorMessages: errorMessages }) %>
+
           <form action="/login" method="POST" class="space-y-5">
+            
             <div>
               <label for="email" class="mb-2 block text-sm font-semibold text-[#1E2A26]">
                 Email Address
@@ -45,6 +48,7 @@
                 id="email"
                 type="email"
                 name="email"
+                value="<%= oldInput?.email || '' %>"
                 placeholder="Enter your email"
                 required
                 class="w-full rounded-xl border border-[#DCD6C6] bg-[#F8F6F1] px-4 py-3 text-sm text-[#1E2A26] outline-none transition duration-300 placeholder:text-[#9C978A] focus:border-[#2F5D50] focus:bg-white focus:ring-4 focus:ring-[#D8ECE5]"

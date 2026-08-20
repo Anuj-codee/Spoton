@@ -11,6 +11,7 @@ const storeRouter = require("./routes/storeRouter");
 const authRouter = require("./routes/authRouter");
 const { hostRouter } = require("./routes/hostRouter");
 const rootdir = require("./utils/pathUtils");
+const multer = require("multer");
 
 const errorHandler = require("./controllers/errors");
 const { error } = require("console");
@@ -43,6 +44,7 @@ function configureApp(store) {
 
   app.use((req, res, next) => {
     req.isLoggedIn = req.session.isLoggedIn;
+    res.locals.userType = req.session.userType;
     next();
   });
 

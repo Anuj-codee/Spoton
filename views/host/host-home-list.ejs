@@ -20,8 +20,8 @@
         <% registeredHomes.forEach(home => { %>
           <article class="group overflow-hidden rounded-[28px] border border-[#DCD6C6] bg-white shadow-[0_10px_35px_rgba(30,42,38,0.06)] transition-all duration-250 hover:-translate-y-1 hover:shadow-[0_24px_80px_rgba(47,93,80,0.14)]">
             <div class="relative">
-              <% if (home.photoUrl) { %>
-                <img src="<%= home.photoUrl %>" alt="<%= home.housename %>" class="w-full h-48 object-cover">
+              <% if (home.photo) { %>
+                <img src="<%= home.photo %>" alt="<%= home.housename %>" class="w-full h-48 object-cover">
               <% } else { %>
                 <div class="w-full h-48 bg-[#EFEBE0] flex items-center justify-center text-sm font-medium text-[#7A7466]">No photo</div>
               <% } %>

@@ -44,7 +44,7 @@
             <p class="mt-2 text-sm text-[#6B6558]">It only takes a few minutes to get started.</p>
           </div>
 
-          <form action="/host/add-home" method="POST" class="space-y-5">
+          <form action="/host/add-home" method="POST" class="space-y-5" enctype="multipart/form-data">
             
             <div>
               <label for="housename" class="block text-sm font-medium text-[#1E2A26] mb-1.5">Property Name</label>
@@ -93,18 +93,19 @@
                   id="location"
                   type="text"
                   name="location"
+                  accept="image/jpg,image/png,image/jpeg"
                   placeholder="e.g. Goa, India"
                   required
                   class="w-full rounded-lg border border-[#DCD6C6] bg-white px-4 py-2.5 text-[#1E2A26] placeholder-[#9C978A] text-sm transition focus:border-[#2F5D50] focus:outline-none focus:ring-2 focus:ring-[#2F5D50]/15"
                 >
               </div>
               <div>
-                <label for="photoUrl" class="block text-sm font-medium text-[#1E2A26] mb-1.5">Photo URL</label>
+                <label for="photo" class="block text-sm font-medium text-[#1E2A26] mb-1.5">Photo URL</label>
                 <input
-                  id="photoUrl"
-                  type="url"
-                  name="photoUrl"
-                  placeholder="https://example.com/home.jpg"
+                  id="photo"
+                  type="file"
+                  name="photo"
+                  multiple
                   required
                   class="w-full rounded-lg border border-[#DCD6C6] bg-white px-4 py-2.5 text-[#1E2A26] placeholder-[#9C978A] text-sm transition focus:border-[#2F5D50] focus:outline-none focus:ring-2 focus:ring-[#2F5D50]/15"
                 >

@@ -1,7 +1,7 @@
 const favourite = require("../models/favourite");
 const Home = require("../models/home");
 exports.getAddhome =(req,res,next)=>{
-  res.render('host/addhome',{pageTitle: 'Add home',isLoggedIn: req.isLoggedIn,});
+  res.render('host/addhome',{pageTitle: 'Add home',isLoggedIn: req.isLoggedIn,user: req.session.user });
 }
 
 
@@ -15,16 +15,16 @@ exports.getEdithome =(req,res,next)=>{
       return res.redirect("/host/host-home-list");
     }
     console.log(homeid,editing,home);
-    res.render('host/edit-home',{pageTitle: 'Edit home',editing:editing,home:home,isLoggedIn: req.isLoggedIn,});
+    res.render('host/edit-home',{pageTitle: 'Edit home',editing:editing,home:home,isLoggedIn: req.isLoggedIn,user: req.session.user });
   });
 }
 
 exports.getPosthome=(req,res)=>{
-  const {housename,price,photoUrl,rating,description,location}=req.body;
+  const {housename,price,photo,rating,description,location}=req.body;
   const home=new Home({
     housename,
     price,
-    photoUrl,
+    photo,
     rating,
     description,
     location,
@@ -42,12 +42,12 @@ exports.getPosthome=(req,res)=>{
 }
 exports.postEdithome = (req, res, next) => {
   const homeId = req.params.homeid || req.body.id;
-  const { housename, price, photoUrl, rating, description, location } = req.body;
+  const { housename, price, photo, rating, description, location } = req.body;
 
   Home.findByIdAndUpdate(homeId, {
     housename,
     price,
-    photoUrl,
+    photo,
     rating,
     description,
     location,
@@ -66,7 +66,7 @@ exports.getHostHomes = (req,res,next) => {
   Home.find()
     .then(registeredHomes => {
     console.log(registeredHomes);
-    res.render('host/host-home-list', { registeredHomes: registeredHomes, pageTitle: 'host homes',isLoggedIn: req.isLoggedIn,});
+    res.render('host/host-home-list', { registeredHomes: registeredHomes, pageTitle: 'host homes',isLoggedIn: req.isLoggedIn,user: req.session.user });
   });
 };
 
@@ -82,12 +82,12 @@ exports.postDeletehome=(req,res)=>{
   })
 }
 exports.postAddHome = (req, res) => {
-  const { housename, price, photoUrl, rating, description, location } = req.body;
+  const { housename, price, photo, rating, description, location } = req.body;
 
   const home = new Home({
     housename,
     price,
-    photoUrl,
+    photo,
     rating,
     description,
     location,
@@ -96,7 +96,7 @@ exports.postAddHome = (req, res) => {
   home.save()
     .then(() => {
       console.log("Home registration succeeded");
-      res.render("host/addedhome", { pageTitle: "Added home" ,isLoggedIn: req.isLoggedIn,});
+      res.render("host/addedhome", { pageTitle: "Added home" ,isLoggedIn: req.isLoggedIn,user: req.session.user });
     })
     .catch((err) => {
       console.error(err);

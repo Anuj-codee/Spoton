@@ -2,7 +2,7 @@
   {
     "housename": "cozy laek",
     "price": "12241234123",
-    "photoUrl": "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=1200&q=80",
+    "photo": "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=1200&q=80",
     "rating": "4.7",
     "description": "A cozy lakeside home with peaceful views, spacious rooms, and a relaxing stay for families or groups.",
     "location": "Nainital, Uttarakhand",
@@ -11,7 +11,7 @@
   {
     "housename": " cozzy freaky house",
     "price": "214124",
-    "photoUrl": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
+    "photo": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
     "rating": "4.4",
     "description": "A comfortable city home with warm interiors, easy access to markets, and a quiet private space.",
     "location": "Delhi, India",
@@ -20,7 +20,7 @@
   {
     "housename": "wagehrsdjtmf",
     "price": "2561",
-    "photoUrl": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80",
+    "photo": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80",
     "rating": "4.2",
     "description": "A budget-friendly stay with essential amenities, clean rooms, and convenient access to nearby transport.",
     "location": "Goa, India",

@@ -1,26 +1,65 @@
 const { check, validationResult } = require('express-validator');
-const Home = require("../models/home");
+const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 
 exports.getLogin = (req, res, next) => {
   res.render("auth/login", {
     pageTitle: "Login",
     isLoggedIn: false,
+    errorMessages: [],
+    oldInput: { email: "" },
+    user: {},
   });
 };
 exports.getSignup = (req, res, next) => {
   res.render("auth/signup", {
     pageTitle: "Signup",
     isLoggedIn: false,
-    oldInput: {name: "",email: "",userType: ""}
+    oldInput: { name: "", email: "", userType: "" },
+    user: {},
+    errorMessages: [],
   });
 };
 
-exports.postLogin = (req,res,next) =>{
-  console.log(req.body);
+exports.postLogin =async (req, res, next) => {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email: email });
+  if (!user) {
+    return res.status(422).render('auth/login', {
+      pageTitle: 'Login',
+      isLoggedIn: false,
+      errorMessages: ['User does not exist'],
+      oldInput: { email },
+      user: {},
+    });
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    return res.status(422).render('auth/login', {
+      pageTitle: 'Login',
+      isLoggedIn: false,
+      errorMessages: ['Invalid password'],
+      oldInput: { email },
+      user: {},
+    });
+  }
   req.session.isLoggedIn = true;
-  // res.cookie("isLoggedIn",true);
-  //req.isLoggedIn=true;
-  res.redirect("/");
+  req.session.user = {
+    // Keep session data JSON/BSON primitives only. Mongoose's ObjectId comes
+    // from a newer BSON package than connect-mongodb-session uses.
+    _id: user._id.toString(),
+    name: user.name,
+    email: user.email,
+  };
+  req.session.userType = user.userType;
+
+  req.session.save(err => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
 }
 
 
@@ -106,16 +145,33 @@ exports.postSignup = [
     // Validation successful
     console.log('Validation successful');
 
-    // TODO:
-    // Save user to database here
-
-    res.redirect('/login');
+    bcrypt.hash(password, 12)
+      .then(hashedPassword => {
+        const user = new User({ name, email, password: hashedPassword, userType });
+        return user.save();
+      })
+      .then(() => {
+        console.log('User saved to database');
+        return res.redirect('/login');
+      })
+      .catch(() => {
+        return res.status(422).render('auth/signup', {
+          pageTitle: 'Sign Up',
+          isLoggedIn: false,
+          errorMessages: ['Could not create the account. The email may already be registered.'],
+          oldInput: {
+            name,
+            email,
+            userType
+          }
+        });
+      });
   }
 
 ];
 
-exports.postLogout =(req,res,next) =>{
-  req.session.destroy(()=>{
+exports.postLogout = (req, res, next) => {
+  req.session.destroy(() => {
     res.redirect("/login")
   })
 }

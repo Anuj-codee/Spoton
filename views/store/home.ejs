@@ -1,107 +1,249 @@
 <%- include('../partials/head') %>
+
 <body class="min-h-screen bg-[#F6F4EE] text-[#1E2A26]" style="font-family: 'Inter', sans-serif;">
-<%- include('../partials/nav') %>
+
+  <%- include('../partials/nav') %>
+
   <main class="min-h-screen px-4 py-6 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-[#DCD6C6] bg-white shadow-[0_20px_70px_rgba(30,42,38,0.12)]">
-      <div class="grid lg:grid-cols-[0.95fr_1.55fr]">
+
+    <!-- Wider main container -->
+    <div class="mx-auto max-w-[1600px] overflow-hidden rounded-[2rem] border border-[#DCD6C6] bg-white shadow-[0_20px_70px_rgba(30,42,38,0.12)]">
+
+      <!-- Fixed sidebar + flexible content -->
+      <div class="grid lg:grid-cols-[380px_minmax(0,1fr)]">
+
+        <!-- Left Section -->
         <section class="relative overflow-hidden bg-[radial-gradient(120%_120%_at_15%_10%,_#3C7361_0%,_#2F5D50_45%,_#234438_100%)] p-8 text-white sm:p-10 lg:p-12">
-          <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(rgba(255,255,255,0.18) 1px, transparent 1px); background-size: 14px 14px;"></div>
+
+          <div
+            class="absolute inset-0 opacity-20"
+            style="background-image: radial-gradient(rgba(255,255,255,0.18) 1px, transparent 1px); background-size: 14px 14px;">
+          </div>
+
           <div class="relative flex h-full flex-col justify-between gap-8">
+
             <div>
-              <span class="mb-6 inline-block rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/80">StaySpot</span>
+
+              <span class="mb-6 inline-block rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/80">
+                StaySpot
+              </span>
+
               <h1 class="font-['Fraunces'] text-3xl leading-tight sm:text-4xl">
                 Discover homes that feel like a fresh start.
               </h1>
+
               <p class="mt-4 max-w-[28ch] text-sm leading-7 text-white/80 sm:text-base">
                 Browse beautifully listed spaces, compare the details, and book with confidence.
               </p>
+
             </div>
 
-            <div class="grid gap-3 sm:grid-cols-2">
+            <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+
               <div class="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-sm">
                 <p class="text-2xl font-semibold">120+</p>
                 <p class="text-sm text-white/70">Verified homes</p>
               </div>
+
               <div class="rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-sm">
                 <p class="text-2xl font-semibold">4.9/5</p>
                 <p class="text-sm text-white/70">Guest satisfaction</p>
               </div>
+
             </div>
+
           </div>
+
         </section>
 
-        <section class="bg-[#FCFBF7] p-6 sm:p-8 lg:p-10">
+
+        <!-- Right Section -->
+        <section class="min-w-0 bg-[#FCFBF7] p-6 sm:p-8 lg:p-10">
+
+          <!-- Header -->
           <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <span class="mb-3 inline-block rounded-full border border-[#DCD6C6] bg-[#F6F4EE] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#2F5D50]">Homes</span>
-              <h2 class="text-2xl font-semibold text-[#1E2A26] sm:text-3xl">Registered properties</h2>
-              <p class="mt-2 text-sm text-[#6B6558] sm:text-base">A polished place to showcase each listing and guide guests forward.</p>
+
+            <div class="min-w-0">
+
+              <span class="mb-3 inline-block rounded-full border border-[#DCD6C6] bg-[#F6F4EE] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-[#2F5D50]">
+                Homes
+              </span>
+
+              <h2 class="text-2xl font-semibold text-[#1E2A26] sm:text-3xl">
+                Registered properties
+              </h2>
+
+              <p class="mt-2 text-sm text-[#6B6558] sm:text-base">
+                A polished place to showcase each listing and guide guests forward.
+              </p>
+
             </div>
-            <a href="/host/add-home" class="inline-flex items-center justify-center rounded-xl bg-[#2F5D50] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#234438]">
+
+            <a
+              href="/host/add-home"
+              class="inline-flex shrink-0 items-center justify-center rounded-xl bg-[#2F5D50] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#234438]"
+            >
               Add a home
             </a>
+
           </div>
 
-          <% if (registeredHomes.length===0) { %>
+
+          <!-- No Homes -->
+          <% if (registeredHomes.length === 0) { %>
+
             <div class="flex flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-[#DCD6C6] bg-[#F6F4EE] px-6 py-16 text-center">
-              <div class="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-xl font-semibold text-[#2F5D50] shadow-sm">✦</div>
-              <h3 class="text-xl font-semibold text-[#1E2A26]">No homes listed yet</h3>
-              <p class="mt-2 max-w-md text-sm text-[#6B6558]">Start by listing your first property and let the experience feel as welcoming as your space.</p>
-              <a href="/host/add-home" class="mt-6 inline-flex items-center rounded-xl bg-[#2F5D50] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#234438]">
+
+              <div class="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-xl font-semibold text-[#2F5D50] shadow-sm">
+                ✦
+              </div>
+
+              <h3 class="text-xl font-semibold text-[#1E2A26]">
+                No homes listed yet
+              </h3>
+
+              <p class="mt-2 max-w-md text-sm text-[#6B6558]">
+                Start by listing your first property and let the experience feel as welcoming as your space.
+              </p>
+
+              <a
+                href="/host/add-home"
+                class="mt-6 inline-flex items-center rounded-xl bg-[#2F5D50] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#234438]"
+              >
                 List your home
               </a>
+
             </div>
+
+
+          <!-- Homes Grid -->
           <% } else { %>
-            <ul class="grid gap-6 md:grid-cols-2">
-              <% registeredHomes.forEach((home, i)=> { %>
-                <li class="group overflow-hidden rounded-[1.5rem] border border-[#DCD6C6] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                  <% if (home.photoUrl || home.photourl) { %>
-                    <img src="<%= home.photoUrl || home.photourl || '' %>" alt="<%= home.housename || 'Home photo' %>" class="h-48 w-full object-cover">
+
+            <ul class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+
+              <% registeredHomes.forEach((home, i) => { %>
+
+                <li class="group min-w-0 overflow-hidden rounded-[1.5rem] border border-[#DCD6C6] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+
+
+                  <!-- Image -->
+                  <% if (home.photo || home.photo) { %>
+
+                    <img
+                      src="<%= home.photo || home.photo %>"
+                      alt="<%= home.housename || 'Home photo' %>"
+                      class="h-44 w-full object-cover"
+                    >
+
                   <% } else { %>
-                    <div class="flex h-48 w-full items-center justify-center bg-[#F6F4EE] text-sm text-[#6B6558]">No photo</div>
+
+                    <div class="flex h-44 w-full items-center justify-center bg-[#F6F4EE] text-sm text-[#6B6558]">
+                      No photo
+                    </div>
+
                   <% } %>
 
-                  <div class="p-5">
-                    <div class="mb-4 flex items-start justify-between gap-3">
-                      <span class="rounded-full bg-[#EEF3EF] px-2.5 py-1 text-sm font-semibold text-[#2F5D50]"><%= home.rating || 'N/A' %>/5</span>
-                      <span class="text-xs font-medium uppercase tracking-[0.24em] text-[#9C978A]">#<%= String(i + 1).padStart(3, '0') %></span>
+
+                  <div class="min-w-0 p-4">
+
+
+                    <!-- Rating -->
+                    <div class="mb-3 flex items-start justify-between gap-2">
+
+                      <span class="shrink-0 rounded-full bg-[#EEF3EF] px-2.5 py-1 text-sm font-semibold text-[#2F5D50]">
+                        <%= home.rating || 'N/A' %>/5
+                      </span>
+
+                      <span class="truncate text-xs font-medium uppercase tracking-[0.18em] text-[#9C978A]">
+                        #<%= String(i + 1).padStart(3, '0') %>
+                      </span>
+
                     </div>
 
-                    <h3 class="truncate text-lg font-semibold text-[#1E2A26]">
+
+                    <!-- Home Name -->
+                    <h3 class="truncate text-base font-semibold text-[#1E2A26]">
                       <%= home.housename || 'Untitled property' %>
                     </h3>
-                    <p class="mt-1 text-sm text-[#6B6558]"><%= home.location || 'Location not provided' %></p>
-                    <p class="mt-3 text-sm leading-6 text-[#4A463C]"><%= home.description || 'No description provided.' %></p>
 
-                    <div class="mt-4 flex items-center justify-between rounded-2xl border border-[#DCD6C6] bg-[#F6F4EE] px-4 py-3">
-                      <span class="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#9C978A]">Price</span>
-                      <span class="text-sm font-semibold text-[#1E2A26]">
+
+                    <!-- Location -->
+                    <p class="mt-1 truncate text-sm text-[#6B6558]">
+                      <%= home.location || 'Location not provided' %>
+                    </p>
+
+
+                    <!-- Description -->
+                    <p class="mt-3 line-clamp-2 min-h-[48px] text-sm leading-6 text-[#4A463C]">
+                      <%= home.description || 'No description provided.' %>
+                    </p>
+
+
+                    <!-- Price -->
+                    <div class="mt-4 flex items-center justify-between gap-2 rounded-2xl border border-[#DCD6C6] bg-[#F6F4EE] px-3 py-3">
+
+                      <span class="shrink-0 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#9C978A]">
+                        Price
+                      </span>
+
+                      <span class="min-w-0 truncate text-sm font-semibold text-[#1E2A26]">
                         <%= home.price ? `Rs. ${home.price}` : 'Not provided' %>
                       </span>
+
                     </div>
 
+
+                    <!-- Availability -->
                     <div class="mt-4 flex items-center gap-2 border-t border-[#DCD6C6] pt-4">
-                      <span class="h-2.5 w-2.5 rounded-full bg-[#2F5D50]"></span>
-                      <span class="text-xs font-semibold uppercase tracking-[0.24em] text-[#2F5D50]">Available</span>
+
+                      <span class="h-2 w-2 shrink-0 rounded-full bg-[#2F5D50]"></span>
+
+                      <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#2F5D50]">
+                        Available
+                      </span>
+
                     </div>
 
-                    <div class="mt-5 flex gap-3">
-                      <a href="/home-detail/<%=home._id%>" class="flex-1 rounded-xl bg-[#2F5D50] px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-[#234438]">
+
+                    <!-- Buttons -->
+                    <div class="mt-4 grid grid-cols-2 gap-2">
+
+                      <a
+                        href="/home-detail/<%= home._id %>"
+                        class="min-w-0 rounded-xl bg-[#2F5D50] px-2 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-[#234438]"
+                      >
                         Details
                       </a>
-                      <button type="button" class="flex-1 rounded-xl border border-[#DCD6C6] bg-white px-4 py-2.5 text-sm font-semibold text-[#1E2A26] transition hover:bg-[#F6F4EE]">
+
+                      <button
+                        type="button"
+                        class="min-w-0 rounded-xl border border-[#DCD6C6] bg-white px-2 py-2.5 text-sm font-semibold text-[#1E2A26] transition hover:bg-[#F6F4EE]"
+                      >
                         Book
                       </button>
+
                     </div>
+
                   </div>
+
                 </li>
+
               <% }) %>
+
             </ul>
+
           <% } %>
+
         </section>
+
       </div>
+
     </div>
+
   </main>
-<%- include('../partials/footer') %>
+
+  <%- include('../partials/footer') %>
+
 </body>
+
 </html>

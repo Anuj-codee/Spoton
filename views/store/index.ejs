@@ -14,8 +14,8 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <% registeredHomes.forEach(home => { %>
           <article class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl shadow-black/20">
-            <% if (home.photoUrl) { %>
-              <img src="<%= home.photoUrl %>" alt="<%= home.housename || 'Home photo' %>" class="w-full h-48 object-cover">
+            <% if (home.photo) { %>
+              <img src="<%= home.photo %>" alt="<%= home.housename || 'Home photo' %>" class="w-full h-48 object-cover">
             <% } else { %>
               <div class="w-full h-48 bg-slate-800 flex items-center justify-center text-slate-500 text-sm">No photo</div>
             <% } %>

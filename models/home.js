@@ -1,8 +1,8 @@
 /*
   this.housename = housename;
     this.price = price;
-    this.photoUrl = photourl;
-    this.photourl = photourl;
+    this.photo = photo;
+    this.photo = photo;
     this.rating = rating;
     this.description = description;
     this.location = location;
@@ -14,7 +14,7 @@
    static DeleteById(homeId, callback)
 */
 const mongoose=require('mongoose');
-const favourite = require('./favourite');
+//const favourite = require('./favourite');
 
 const homeSchema = new mongoose.Schema({
   housename: {
@@ -29,7 +29,7 @@ const homeSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  photoUrl: {
+  photo: {
     type: String,
   },
   rating: {
@@ -43,11 +43,11 @@ const homeSchema = new mongoose.Schema({
   },
 });
 
-homeSchema.pre('findOneAndDelete',async function (next) {
-  // Pre-delete middleware for home documents
-  const homeId = this.getQuery()._id;
-  await favourite.deleteOne({ houseId: homeId });
+// homeSchema.pre('findOneAndDelete',async function (next) {
+//   // Pre-delete middleware for home documents
+//   const homeId = this.getQuery()._id;
+//   await favourite.deleteOne({ houseId: homeId });
 
-});
+// });
 
 module.exports = mongoose.model("Home", homeSchema);
